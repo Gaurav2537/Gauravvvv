@@ -1,0 +1,62 @@
+# Given tickets
+tickets = [
+    ("Paris", "Skopje"),
+    ("Zurich", "Amsterdam"),
+    ("Prague", "Zurich"),
+    ("Barcelona", "Berlin"),
+    ("Kiev", "Prague"),
+    ("Skopje", "Paris"),
+    ("Amsterdam", "Barcelona"),
+    ("Berlin", "Kiev"),
+    ("Berlin", "Amsterdam")
+]
+
+# Target cities in the route
+target_cities = {"Amsterdam", "Kiev", "Zurich", "Prague", "Berlin", "Barcelona"}
+
+# Build the graph
+from collections import defaultdict, deque
+
+graph = defaultdict(list)
+for start, end in tickets:
+    graph[start].append(end)
+
+# Function to find the route
+def find_route(graph, start, target_cities):
+    visited = set()
+    route = []
+    
+    def dfs(city):
+        if city in visited or city not in target_cities:
+            return False
+        visited.add(city)
+        route.append(city)
+        if len(visited) == len(target_cities):
+            return True
+        for neighbor in graph[city]:
+            if dfs(neighbor):
+                return True
+        visited.remove(city)
+        route.pop()
+        return False
+    
+    dfs(start)
+    return route
+
+# Start from Kiev
+start_city = "Kiev"
+route = find_route(graph, start_city, target_cities)
+	print("The route your son traveled is:", route)
+
+#Explanation:
+
+1. **Graph Construction**:
+   - We use a dictionary where the keys are city names and the values are lists of neighboring cities accessible by train.
+   
+2. **DFS Algorithm**:
+   - We perform a depth-first search starting from Kiev.
+   - We use a set `visited` to keep track of cities that have been visited.
+   - The `route` list keeps track of the current path.
+   - If a city is visited or not part of the target cities, the function returns `False`.
+   - If all target cities are visited, it returns `True` indicating a complete route is found.
+   - We recursively traverse each neighbor of the current city. If the traversal leads to a complete route, we return `True`. Otherwise, we backtrack.
