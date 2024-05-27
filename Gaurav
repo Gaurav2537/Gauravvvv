@@ -1,0 +1,46 @@
+// src/Logo.js
+import React from 'react';
+import './Logo.css'; // Assuming you'll use a CSS file for styling
+
+const Logo = () => {
+  return (
+    <div className="logo">
+      {/* Replace the below SVG code with your actual logo design */}
+      <svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="50" cy="50" r="40" stroke="black" strokeWidth="3" fill="red" />
+        <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="20" fill="white">Logo</text>
+      </svg>
+    </div>
+  );
+};
+
+export default Logo;
+
+/* src/Logo.css */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Example background color */
+}
+
+// src/App.js
+import React from 'react';
+import './App.css';
+import Logo from './Logo';
+
+function App() {
+  return (
+    <div className="App">
+      <Logo />
+    </div>
+  );
+}
+
+export default App;
